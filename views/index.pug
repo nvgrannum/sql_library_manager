@@ -17,7 +17,7 @@ block content
         book
           tr 
               td 
-                a(href="/books/#{book.id}") #{book.title}
+                a(href=`/books/${book.id}`) #{book.title}
               td=book.author 
               td=book.genre
               td=book.year  
