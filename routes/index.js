@@ -22,11 +22,12 @@ router.get('/', asyncHandler(async(req, res, next) => {
 
 router.get('/books', asyncHandler(async(req, res, next) => {
   const books = await Book.findAll();
-  console.log(books);
+  //console.log(books);
   //res.json(books);
   res.render('index', {title: "Library Database", books})
 }));
 
+//New book form
 router.get('/books/new', asyncHandler(async(req, res, next) => {
   console.log('add a new book');
   res.render('new-book', {book:{}, title: "New Book"})
@@ -35,14 +36,15 @@ router.get('/books/new', asyncHandler(async(req, res, next) => {
 //POST new books
 router.post('/books/new', asyncHandler(async(req, res, next) => {
   const book = await Book.create(req.body);
+  console.log(book);
   res.redirect('/books/' + book.id);
 }));
 
 //GET specific book
-// router.get('/books/:id', asyncHandler(async(req, res, next) => {
-//   const book = await Book.findByPk(req.params.id);
-//   res.redirect('/books/' + book.id);
-//}));
+router.get('/books/:id', asyncHandler(async(req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  res.render('book-detail', {id:book.id, title:book.title, author:book.author, genre: book.genre, year:book.year});
+}));
 
 //Edit specific book
 // router.get('/books/:id/edit', asyncHandler(async(req, res, next) => {
