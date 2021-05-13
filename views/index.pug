@@ -7,7 +7,17 @@ block content
   form(action="/books/new", method="get")
     input(type='submit', value="Create New Book")
 
-  each book in books
-    book
-      h3= book.title 
-      p= book.author  
+  table(style="width:100%")
+    tr
+      th Title 
+      th Author
+      th Genre
+      th Year
+      each book in books
+        book
+          tr 
+              td 
+                a(href="/books/#{book.id}") #{book.title}
+              td=book.author 
+              td=book.genre
+              td=book.year  

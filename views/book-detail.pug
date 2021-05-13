@@ -1,9 +1,17 @@
 extends layout 
 
 block content
-    h2= title 
-    h2= author
-    h2= genre 
-    h2= year
-
+  table(style="width:100%")  
+    tr
+        th Title 
+        th Author
+        th Genre
+        th Year
+    tr 
+        td=title
+        td=author 
+        td=genre
+        td=year
+        
+    br
     a(href="/") Home &larr;
