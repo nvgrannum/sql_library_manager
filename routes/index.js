@@ -22,21 +22,18 @@ router.get('/', asyncHandler(async(req, res, next) => {
 
 router.get('/books', asyncHandler(async(req, res, next) => {
   const books = await Book.findAll();
-  //console.log(books);
   //res.json(books);
   res.render('index', {title: "Library Database", books})
 }));
 
 //New book form
 router.get('/books/new', asyncHandler(async(req, res, next) => {
-  console.log('add a new book');
   res.render('new-book', {book:{}, title: "New Book"})
 }));
 
 //POST new books
 router.post('/books/new', asyncHandler(async(req, res, next) => {
   const book = await Book.create(req.body);
-  console.log(book);
   res.redirect('/books/' + book.id);
 }));
 
@@ -47,29 +44,29 @@ router.get('/books/:id', asyncHandler(async(req, res, next) => {
 }));
 
 //Edit specific book
-// router.get('/books/:id/edit', asyncHandler(async(req, res, next) => {
-//   const book = await Book.findByPk(req.params.id);
-//   res.render('update-book', {article, title: 'Edit' + article.title, id:req.params.id});
-//}));
+router.get('/books/:id/edit', asyncHandler(async(req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  res.render('update-book', {article, title: 'Edit' + article.title, id:req.params.id});
+}));
 
 //Update specific book
-// router.post('/books/:id/edit', asyncHandler(async(req, res, next) => {
-//   const book = await Book.findByPk(req.params.id);
-//   await book.update(req.body);
-//   res.redirect('/books/' + book.id);
-//}));
+router.post('/books/:id/edit', asyncHandler(async(req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  await book.update(req.body);
+  res.redirect('/books/' + book.id);
+}));
 
 //Delete prompt
-// router.get('/books/:id/delete', asyncHandler(async(req, res, next) => {
-//   const book = await Book.findByPk(req.params.id);
-//   res.render('delete' , {article, title: 'Delete' + article.title, id: req.params.id});
-//}));
+router.get('/books/:id/delete', asyncHandler(async(req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  res.render('delete' , {article, title: 'Delete' + article.title, id: req.params.id});
+}));
 
 //Deletes book from database
-// router.post('/books/:id/delete', asyncHandler(async(req, res, next) => {
-//   const book = await Book.findByPk(req.params.id);
-//   await book.destroy();
-//   res.redirect('/books');
-//}));
+router.post('/books/:id/delete', asyncHandler(async(req, res, next) => {
+  const book = await Book.findByPk(req.params.id);
+  await book.destroy();
+  res.redirect('/books');
+}));
 
 module.exports = router;

@@ -22,6 +22,7 @@ block content
         br    
         div 
             input(type='submit', name='create', value="Create New Book") 
-        br    
-        div 
-            input(type='submit', name='cancel', value="Cancel")       
+        br
+    form(action="/books", method="get")    
+        div
+            input(type='submit', name='cancel', value="Cancel")      
