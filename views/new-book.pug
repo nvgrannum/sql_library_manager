@@ -2,8 +2,15 @@ extends layout
 
 block content
     h1= title
-  
+    
+    if errors
+        h1.error Oops! 
+        each error in errors
+            p.error=error.message
+
     form(action='/books/new', method="post")
+        
+        
         div
             label(for="title") Title: 
             input(type='text', id="title", name="title", value=book.title)

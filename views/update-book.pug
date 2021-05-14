@@ -3,6 +3,12 @@ extends layout
 block content   
     h1 Edit #{book.title}
   
+    if errors
+        h1.error Oops! 
+        each error in errors
+            p.error=error.message
+        
+
     form(action=`/books/${book.id}/edit`, method="post")
         div
             label(for="title") Title: 
@@ -24,5 +30,8 @@ block content
             input(type='submit', name='edit', value="Edit Entry") 
         br
     form(action=`/books/${book.id}`, method="get")    
-        div
-            input(type='submit', name='cancel', value="Cancel")   
+        input(type='submit', name='cancel', value="Cancel")   
+        br
+        br
+    form(action=`/books/${id}/delete`, method="get")
+        input(type='submit', name="delete", value="Delete Entry", class="warning")        
