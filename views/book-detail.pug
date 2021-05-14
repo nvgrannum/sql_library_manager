@@ -14,4 +14,9 @@ block content
         td=year
         
     br
-    a(href="/") Home &larr;
+  
+    form(action=`/books/${id}/delete`, method="get")
+        input(type='submit', value="Delete")
+  br
+  a(href="/") Home &larr;
+    br

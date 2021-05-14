@@ -22,7 +22,6 @@ router.get('/', asyncHandler(async(req, res, next) => {
 
 router.get('/books', asyncHandler(async(req, res, next) => {
   const books = await Book.findAll();
-  //res.json(books);
   res.render('index', {title: "Library Database", books})
 }));
 
@@ -46,7 +45,7 @@ router.get('/books/:id', asyncHandler(async(req, res, next) => {
 //Edit specific book
 router.get('/books/:id/edit', asyncHandler(async(req, res, next) => {
   const book = await Book.findByPk(req.params.id);
-  res.render('update-book', {article, title: 'Edit' + article.title, id:req.params.id});
+  res.render('update-book', {book, title: 'Edit' + book.title, id:req.params.id});
 }));
 
 //Update specific book
@@ -59,7 +58,7 @@ router.post('/books/:id/edit', asyncHandler(async(req, res, next) => {
 //Delete prompt
 router.get('/books/:id/delete', asyncHandler(async(req, res, next) => {
   const book = await Book.findByPk(req.params.id);
-  res.render('delete' , {article, title: 'Delete' + article.title, id: req.params.id});
+  res.render('delete' , {book, title: 'Delete ' + book.title, id: req.params.id});
 }));
 
 //Deletes book from database
