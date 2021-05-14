@@ -22,7 +22,7 @@ router.get('/', asyncHandler(async(req, res, next) => {
 
 router.get('/books', asyncHandler(async(req, res, next) => {
   const books = await Book.findAll();
-  res.render('index', {title: "Library Database", books})
+  res.render('index', {books, title: "Library Database"})
 }));
 
 //New book form
@@ -67,13 +67,6 @@ router.post('/books/:id/delete', asyncHandler(async(req, res, next) => {
   await book.destroy();
   res.redirect('/books');
 }));
-
-router.get('/error', (req,res)=>{
-  const err = new Error('500s')
-  err.status=500;
-  next(err);
-})
-
 
 
 module.exports = router;

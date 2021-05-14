@@ -5,20 +5,20 @@ block content
   
     form(action=`/books/${book.id}/edit`, method="post")
         div
-            label(for=title) Title: 
-            input(type='text', name='title', value=book.title)
+            label(for="title") Title: 
+            input(type='text', id="title", name='title', value=book.title)
         br    
         div
-            label(for=author) Author: 
-            input(type='text', name='author', value=book.author)
+            label(for="author") Author: 
+            input(type='text', id="author", name='author', value=book.author)
         br
         div
-            label(for=genre) Genre: 
-            input(type='text', name='genre', value=book.genre)
+            label(for="genre") Genre: 
+            input(type='text', id="genre", name='genre', value=book.genre)
         br
         div
-            label(for=year) Year: 
-            input(type='text', name='year', value=book.year)
+            label(for="year") Year: 
+            input(type='text', id="year", name='year', value=book.year)
         br    
         div 
             input(type='submit', name='edit', value="Edit Entry") 

@@ -35,16 +35,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   next(createError(404));
-// });
-
-app.use((req,res,next)=>{
-  const err = new Error("Page not found :(");
-  err.status=404;
-  next(err)   
+//catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  const err = createError(404);
+  next(err)
 });
+
+// app.use((req,res,next)=>{
+//   const err = new Error("Page not found :(");
+//   err.status=404;
+//   next(err)   
+// });
 
 app.use((err, req,res,next)=>{
   res.locals.error= err;
