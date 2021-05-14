@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {Book} = require('../models');
+const {Book} = require('../models/');
 
 
 function asyncHandler(cb){
@@ -46,7 +46,7 @@ router.get('/books/:id', asyncHandler(async(req, res, next) => {
 router.get('/books/:id/edit', asyncHandler(async(req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   res.render('update-book', {book, title: 'Edit' + book.title, id:req.params.id});
-}));
+})); 
 
 //Update specific book
 router.post('/books/:id/edit', asyncHandler(async(req, res, next) => {
@@ -67,5 +67,13 @@ router.post('/books/:id/delete', asyncHandler(async(req, res, next) => {
   await book.destroy();
   res.redirect('/books');
 }));
+
+router.get('/error', (req,res)=>{
+  const err = new Error('500s')
+  err.status=500;
+  next(err);
+})
+
+
 
 module.exports = router;

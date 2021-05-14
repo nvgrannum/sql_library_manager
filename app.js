@@ -13,8 +13,7 @@ const {sequelize} = require('./models');
 var app = express();
 
 (async () => {
-  await sequelize.sync({force:true});
-
+  //await sequelize.sync({force:true});
   try {
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
@@ -37,22 +36,31 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-  // error.status=404;
-  // error.message="Page not found, please try again"
-  //res.render('page-not-found', {error})
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
+
+app.use((req,res,next)=>{
+  const err = new Error("Page not found :(");
+  err.status=404;
+  next(err)   
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+app.use((err, req,res,next)=>{
+  res.locals.error= err;
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error', {error: err});
+  if (err.status ===404) {
+      res.status(err.status);
+      err.message="That page does not exist :("
+      console.log(err.message);
+      return res.render('page-not-found', {err});
+  } else {
+      err.status = 500;
+      res.status(err.status);
+      err.message="Server made an oops :( Try again"
+      console.log(err.message);
+      return res.render('error', {err});
+  }
 });
 
 module.exports = app;
