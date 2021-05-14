@@ -96,6 +96,9 @@ input[type=text] {
   color: rgb(236, 15, 15);
 }
 
-.warning {
+input[name="delete"] {
   background-color:rgb(236, 15, 15);
+}
+input[name="delete"]:hover {
+  background-color:rgb(169, 12, 12);
 }

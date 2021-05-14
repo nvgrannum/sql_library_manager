@@ -16,7 +16,6 @@ var app = express();
   await sequelize.sync({force:true});
 
   try {
-    
     await sequelize.authenticate();
     console.log('Connection has been established successfully.');
   } catch (error) {

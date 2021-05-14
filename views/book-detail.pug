@@ -3,6 +3,15 @@ extends layout
 block content
   table(style="width:100%")  
     tr
+        td 
+            form(action=`/books/${id}/edit`, method="get")
+                input(type='submit', name="edit", value="Edit Entry")
+        td
+            form(action=`/books/${id}/delete`, method="get")
+                input(type='submit', name="delete", value="Delete", class="warning")
+          
+  table(style="width:100%")  
+    tr
         th Title 
         th Author
         th Genre
@@ -14,9 +23,7 @@ block content
         td=year
         
     br
-  
-    form(action=`/books/${id}/delete`, method="get")
-        input(type='submit', value="Delete")
+    
   br
   a(href="/") Home &larr;
-    br
+    
