@@ -9,7 +9,7 @@ block content
             p.error=error.message
         
 
-    form(action=`/books/${book.id}/edit`, method="post")
+    form(action=`/books/${book.id}`, method="post")
         div
             label(for="title") Title: 
             input(type='text', id="title", name='title', value=book.title)

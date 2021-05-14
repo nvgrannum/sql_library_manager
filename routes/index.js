@@ -41,7 +41,7 @@ router.post('/books/new', asyncHandler(async (req, res) => {
       book = await Book.build(req.body);
       res.render("new-book", { book, errors: error.errors, title: "New Book" })
     } else {
-      throw error; // error caught in the asyncHandler's catch block
+      throw error;
     }  
   }
 }));
@@ -52,14 +52,14 @@ router.get('/books/:id', asyncHandler(async(req, res, next) => {
   res.render('book-detail', {id:book.id, title:book.title, author:book.author, genre: book.genre, year:book.year});
 }));
 
-//Edit specific book
+//Edit specific book (form)
 router.get('/books/:id/edit', asyncHandler(async(req, res, next) => {
   const book = await Book.findByPk(req.params.id);
   res.render('update-book', {book, title: 'Edit' + book.title, id:req.params.id});
 })); 
 
 //Update specific book
-router.post('/books/:id/edit', asyncHandler(async (req, res) => {
+router.post('/books/:id', asyncHandler(async (req, res) => {
   let book;
   try {
     book = await Book.findByPk(req.params.id);
