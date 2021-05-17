@@ -49,13 +49,27 @@ router.post('/books/new', asyncHandler(async (req, res) => {
 //GET specific book
 router.get('/books/:id', asyncHandler(async(req, res, next) => {
   const book = await Book.findByPk(req.params.id);
-  res.render('book-detail', {id:book.id, title:book.title, author:book.author, genre: book.genre, year:book.year});
+  if (book){
+    res.render('book-detail', {id:book.id, title:book.title, author:book.author, genre: book.genre, year:book.year});
+  } else {
+    const error= new Error();
+    error.message="Not Found";
+    error.status=404;
+    throw error
+  }
 }));
 
 //Edit specific book (form)
 router.get('/books/:id/edit', asyncHandler(async(req, res, next) => {
   const book = await Book.findByPk(req.params.id);
-  res.render('update-book', {book, title: 'Edit' + book.title, id:req.params.id});
+  if (book) {
+    res.render('update-book', {book, title: 'Edit' + book.title, id:req.params.id});
+  } else {
+    const error= new Error();
+    error.message="Not Found";
+    error.status=404;
+    throw error
+  }
 })); 
 
 //Update specific book
@@ -83,7 +97,14 @@ router.post('/books/:id', asyncHandler(async (req, res) => {
 //Delete prompt
 router.get('/books/:id/delete', asyncHandler(async(req, res, next) => {
   const book = await Book.findByPk(req.params.id);
-  res.render('delete' , {book, title: 'Delete ' + book.title, id: req.params.id});
+  if (book) {
+    res.render('delete' , {book, title: 'Delete ' + book.title, id: req.params.id});
+  } else {
+    const error= new Error();
+    error.message="Not Found";
+    error.status=404;
+    throw error
+}
 }));
 
 //Deletes book from database
